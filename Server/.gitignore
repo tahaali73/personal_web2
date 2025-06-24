@@ -1,0 +1,5 @@
+__pycache__
+app\__pycache__
+app\blueprints\contact\__pycache__
+myenv
+config.py
