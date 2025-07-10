@@ -3,43 +3,55 @@ import { ThemeContext } from "../../Contexts/ThemeContext";
 
 function Heroabout() {
   const { theme, themes } = useContext(ThemeContext);
-  const backgroundColor = themes[theme].primaryColor;
-  const secondaryColor = themes[theme].secondaryColor;
-  const mediumTextColor = themes[theme].mediumTextColor;
-  const largeTextColor = themes[theme].largeTextColor;
-  const CardColor = themes[theme].CardColor;
+  const backgroundPrimary = themes[theme].backgroundPrimary;
+  const accentColor = themes[theme].accent;
+  const textSecondary = themes[theme].textSecondary;
+  const textPrimary = themes[theme].textPrimary;
+  const backgroundSecondary = themes[theme].backgroundSecondary; // For card/badge background
+  const shadowColor = themes[theme].shadow; // For shadows
+
   return (
     <div
-      className={`w-full min-h-screen py-12 px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center justify-center bg-[${backgroundColor}]`}
+      className="w-full min-h-screen py-12 px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center justify-center"
+      style={{ backgroundColor: backgroundPrimary }}
     >
       <div className="w-full max-w-6xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12">
         {/* Image Section */}
         <div className="w-full lg:w-1/2 relative">
-          <div className="relative w-full max-w-[500px] mx-auto rounded-[20px] overflow-hidden shadow-2xl">
-            <div
-              className={`bg-[${CardColor}] w-full h-full flex justify-center items-center`}
-            >
-              <img src="src\assets\Image.png" />
-            </div>
+          <div
+            className="relative w-full max-w-[500px] mx-auto rounded-[20px] overflow-hidden shadow-2xl"
+            style={{
+              backgroundColor: backgroundSecondary, // Image container background
+              boxShadow: `0 20px 25px -5px ${shadowColor}, 0 10px 10px -5px ${shadowColor}`
+            }}
+          >
+            <img src="src\assets\Image.png" alt="Jeffery Cannon" className="w-full h-full object-cover" />
           </div>
         </div>
         {/* Content Section */}
         <div className="w-full lg:w-1/2 flex flex-col gap-8 z-10">
           {/* Welcome Badge */}
           <div
-            className={`w-full max-w-xs bg-[${CardColor}] text-[${secondaryColor}] text-base sm:text-lg md:text-xl font-manrope font-medium py-3 px-6 rounded-full text-center shadow-sm`}
+            className={`w-full max-w-xs py-3 px-6 rounded-full text-center shadow-sm`}
+            style={{
+              backgroundColor: backgroundSecondary,
+              color: accentColor, // Text color for the badge
+              boxShadow: `0 1px 3px 0 ${shadowColor}, 0 1px 2px 0 ${shadowColor}`
+            }}
           >
             Welcome to the world of captivating web design!
           </div>
           {/* Title and Description */}
           <div className="flex flex-col gap-6">
             <h1
-              className={`font-manrope font-bold text-3xl sm:text-4xl md:text-5xl lg:text-[48px] leading-tight text-[${themes[theme].largeTextcolor}]`}
+              className={`font-manrope font-bold text-3xl sm:text-4xl md:text-5xl lg:text-[48px] leading-tight`}
+              style={{ color: textPrimary }}
             >
               I'm Jeffery Cannon
             </h1>
             <p
-              className={`font-manrope text-base md:text-lg text-[${mediumTextColor}] leading-relaxed`}
+              className={`font-manrope text-base md:text-lg leading-relaxed`}
+              style={{ color: textSecondary }}
             >
               A skilled web designer with a passion for creating visually
               stunning and user-friendly websites. With a keen eye for detail
@@ -54,7 +66,8 @@ function Heroabout() {
           </div>
           {/* Stats Section */}
           <div
-            className={`w-full border-t-2 border-b-2 border-[${secondaryColor}] py-6`}
+            className={`w-full border-t-2 border-b-2 py-6`}
+            style={{ borderColor: accentColor }} // Border color using accent
           >
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-0">
               {[
@@ -67,13 +80,15 @@ function Heroabout() {
                   className="flex flex-col items-center justify-center p-2"
                 >
                   <p
-                    className={`font-manrope text-3xl sm:text-4xl font-bold text-[${largeTextColor}]`}
+                    className={`font-manrope text-3xl sm:text-4xl font-bold`}
+                    style={{ color: textPrimary }}
                   >
                     {stat.value.split("+")[0]}{" "}
-                    <span className={`text-[${secondaryColor}]`}>+</span>
+                    <span style={{ color: accentColor }}>+</span>
                   </p>
                   <p
-                    className={`font-manrope text-base sm:text-lg text-[${mediumTextColor}] font-medium mt-1 text-center`}
+                    className={`font-manrope text-base sm:text-lg font-medium mt-1 text-center`}
+                    style={{ color: textSecondary }}
                   >
                     {stat.label}
                   </p>

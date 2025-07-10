@@ -8,7 +8,7 @@ function PortfolioProjects() {
   const CardColor = themes[theme].CardColor;
 
   return (
-    <div className={`w-[1280px] h-[1749px] bg-[${backgroundColor}]`}>
+    <div className="w-[1280px] h-[1749px]" style={{ backgroundColor: backgroundColor }}>
       <div
         className={`w-[1280px] h-[543px] bg-[${CardColor}] flex flex-col justify-between`}
       >

@@ -2,13 +2,13 @@ import React, { useContext } from "react";
 import { ThemeContext } from "../../Contexts/ThemeContext";
 
 function Benefits() {
-  // Benefits data
   const { theme, themes } = useContext(ThemeContext);
-  const backgroundColor = themes[theme].primaryColor;
-  const secondaryColor = themes[theme].secondaryColor;
-  const mediumTextColor = themes[theme].mediumTextColor;
-  const largeTextcolor = themes[theme].largeTextColor;
-  const CardColor = themes[theme].CardColor;
+  const backgroundPrimary = themes[theme].backgroundPrimary;
+  const accentColor = themes[theme].accent;
+  const textSecondary = themes[theme].textSecondary;
+  const textPrimary = themes[theme].textPrimary;
+  const backgroundSecondary = themes[theme].backgroundSecondary; // Card background
+  const shadowColor = themes[theme].shadow;
 
   const benefits = [
     {
@@ -39,19 +39,19 @@ function Benefits() {
   ];
 
   return (
-    <div
-      className={`w-full py-16 px-4 sm:px-6 lg:px-8 bg-[${backgroundColor}]`}
-    >
+    <div className="w-full py-16 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: backgroundPrimary }}>
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
         <div className="text-center mb-12 md:mb-16">
           <h2
-            className={`font-manrope font-semibold text-3xl md:text-4xl lg:text-[38px] text-[${largeTextcolor}] mb-4`}
+            className={`font-manrope font-semibold text-3xl md:text-4xl lg:text-[38px] mb-4`}
+            style={{ color: textPrimary }}
           >
             Benefits
           </h2>
           <p
-            className={`font-manrope font-normal text-base md:text-lg text-[${mediumTextColor}] max-w-3xl mx-auto`}
+            className={`font-manrope font-normal text-base md:text-lg max-w-3xl mx-auto`}
+            style={{ color: textSecondary }}
           >
             By choosing my web design service, you'll enjoy the following
             benefits
@@ -63,18 +63,29 @@ function Benefits() {
           {benefits.slice(0, 2).map((benefit, index) => (
             <div
               key={index}
-              className={`bg-[${CardColor}] rounded-2xl p-8 transition-all duration-300 hover:shadow-xl hover:border hover:border-[${secondaryColor}]/20`}
+              className={`rounded-2xl p-8 transition-all duration-300 hover:shadow-xl hover:border`}
+              style={{
+                backgroundColor: backgroundSecondary,
+                boxShadow: `0 4px 6px -1px ${shadowColor}, 0 2px 4px -1px ${shadowColor}`,
+                // Apply hover border dynamically
+                '--tw-border-opacity': '1',
+                '&:hover': {
+                  borderColor: accentColor,
+                }
+              }}
             >
               <div className="flex items-start mb-6">
                 <div
-                  className={`w-10 h-10 rounded-full bg-[${secondaryColor}] flex items-center justify-center mr-4`}
+                  className={`w-10 h-10 rounded-full flex items-center justify-center mr-4`}
+                  style={{ backgroundColor: accentColor }}
                 >
-                  <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center">
+                  <div className="w-6 h-6 rounded-full flex items-center justify-center" style={{ backgroundColor: themes[theme].textButton }}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className={`h-4 w-4 text-[${secondaryColor}]`}
+                      className={`h-4 w-4`}
                       viewBox="0 0 20 20"
                       fill="currentColor"
+                      style={{ color: accentColor }} // Icon color matches accent
                     >
                       <path
                         fillRule="evenodd"
@@ -85,13 +96,15 @@ function Benefits() {
                   </div>
                 </div>
                 <h3
-                  className={`font-manrope font-semibold text-xl md:text-2xl text-[${largeTextcolor}]`}
+                  className={`font-manrope font-semibold text-xl md:text-2xl`}
+                  style={{ color: textPrimary }}
                 >
                   {benefit.title}
                 </h3>
               </div>
               <p
-                className={`font-manrope font-normal text-base md:text-lg text-[${mediumTextColor}]`}
+                className={`font-manrope font-normal text-base md:text-lg`}
+                style={{ color: textSecondary }}
               >
                 {benefit.description}
               </p>
@@ -102,18 +115,29 @@ function Benefits() {
             {benefits.slice(2, 5).map((benefit, index) => (
               <div
                 key={index + 2}
-                className={`bg-[${CardColor}] rounded-2xl p-8 transition-all duration-300 hover:shadow-xl hover:border hover:border-[${secondaryColor}]/20`}
+                className={`rounded-2xl p-8 transition-all duration-300 hover:shadow-xl hover:border`}
+                style={{
+                  backgroundColor: backgroundSecondary,
+                  boxShadow: `0 4px 6px -1px ${shadowColor}, 0 2px 4px -1px ${shadowColor}`,
+                  // Apply hover border dynamically
+                  '--tw-border-opacity': '1',
+                  '&:hover': {
+                    borderColor: accentColor,
+                  }
+                }}
               >
                 <div className="flex items-start mb-6">
                   <div
-                    className={`w-10 h-10 rounded-full bg-[${secondaryColor}] flex items-center justify-center mr-4`}
+                    className={`w-10 h-10 rounded-full flex items-center justify-center mr-4`}
+                    style={{ backgroundColor: accentColor }}
                   >
-                    <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center">
+                    <div className="w-6 h-6 rounded-full flex items-center justify-center" style={{ backgroundColor: themes[theme].textButton }}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className={`h-4 w-4 text-[${secondaryColor}]`}
+                        className={`h-4 w-4`}
                         viewBox="0 0 20 20"
                         fill="currentColor"
+                        style={{ color: accentColor }}
                       >
                         <path
                           fillRule="evenodd"
@@ -124,13 +148,15 @@ function Benefits() {
                     </div>
                   </div>
                   <h3
-                    className={`font-manrope font-semibold text-xltext-[${largeTextcolor}]`}
+                    className={`font-manrope font-semibold text-xl`}
+                    style={{ color: textPrimary }}
                   >
                     {benefit.title}
                   </h3>
                 </div>
                 <p
-                  className={`font-manrope font-normal text-base text-[${mediumTextColor}]`}
+                  className={`font-manrope font-normal text-base`}
+                  style={{ color: textSecondary }}
                 >
                   {benefit.description}
                 </p>

@@ -14,7 +14,7 @@ function NotFoundPage() {
       </h1>
       <Link to="/">
         <button
-          className={`bg-[${secondaryColor}] hover:bg-[${secondaryHoverColor}] text-white font-manrope font-medium text-md py-4 px-6 rounded-md flex justify-center items-center gap-2`}
+          className="text-white font-manrope font-medium text-md py-4 px-6 rounded-md flex justify-center items-center gap-2" style={{ backgroundColor: secondaryColor, '--secondary-hover-color': secondaryHoverColor }}
         >
           Go Back to Home
         </button>

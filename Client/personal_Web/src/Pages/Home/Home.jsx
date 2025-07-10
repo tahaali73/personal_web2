@@ -4,7 +4,7 @@ import Creative from "./Creative";
 import Benefits from "./Benefits";
 import MyWork from "./myWork";
 import Faq from "./Faq";
-import FaqComp from "../../Components/FaqComp";
+// import FaqComp from "../../Components/FaqComp"; // FaqComp is used inside Faq, no direct import needed here
 
 function Home() {
   const faqs = [
@@ -48,6 +48,8 @@ function Home() {
     },
   ];
   return (
+    // The main container for the Home page
+    // The background color for the entire page will be set by individual sections
     <div className="overflow-y-auto scrollbar-hide flex flex-col items-center">
       <Hero />
       <Creative />

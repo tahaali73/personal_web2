@@ -1,7 +1,7 @@
 import React from 'react'
 
-import ContactForm from './ContactForm'
-import HereFromYou from './HereFromYOu'
+import ContactForm from './ContactForm' // Assuming this component exists and will be themed separately
+import HereFromYou from './HereFromYou'
 import FaqContact from './FaqContact'
 
 function Contact() {
@@ -40,8 +40,11 @@ function Contact() {
     },
   ];
   return (
+    // The main container for the Contact page.
+    // Individual sections will handle their own background colors based on the theme.
     <div className='overflow-y-auto scrollbar-hide flex flex-col items-center'>
       <HereFromYou/>
+      {/* Assuming ContactForm will be updated separately or uses theme context internally */}
       <ContactForm/>
       <FaqContact faqs={faqs}/>
     </div>

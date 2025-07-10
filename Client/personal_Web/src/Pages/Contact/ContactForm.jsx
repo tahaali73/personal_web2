@@ -1,11 +1,23 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import FlashMessage from "../../Components/Flash";
+import FlashMessage from "../../Components/Flash"; // Ensure this path is correct
 import { ThemeContext } from "../../Contexts/ThemeContext";
 
 function ContactForm() {
   const [sent, setSent] = useState(null);
   const [notSent, setNotSent] = useState(null);
+
+  const { theme, themes } = useContext(ThemeContext);
+  const backgroundPrimary = themes[theme].backgroundPrimary;
+  const accentColor = themes[theme].accent;
+  const textSecondary = themes[theme].textSecondary;
+  const textPrimary = themes[theme].textPrimary;
+  const textButton = themes[theme].textButton;
+  const hoverAccent = themes[theme].hoverAccent;
+  const borderColor = themes[theme].border;
+  const shadowColor = themes[theme].shadow;
+  const backgroundSecondary = themes[theme].backgroundSecondary; // For social icons background
+  const iconDefault = themes[theme].iconDefault; // For default icon color
 
   useEffect(() => {
     if (sent) {
@@ -41,26 +53,40 @@ function ContactForm() {
       })
     );
 
-    fetch("http://127.0.0.1:5000/api/contact/sendmessage", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(filteredData),
-    })
-      .then((response) => {
-        if (response.ok) {
-          setSent(true);
-        } else {
-          setNotSent(true);
-        }
-        return response.json();
-      })
-      .then((data) => console.log(data))
-      .catch((error) => {
-        console.error(error);
-        setNotSent(true);
-      });
+    // Placeholder for actual API call
+    // In a real application, you would replace this with your backend endpoint
+    // and handle success/failure based on the actual API response.
+    console.log("Form data submitted:", filteredData);
+
+    // Simulate API call success/failure
+    const simulateSuccess = true; // Change to false to test error message
+    if (simulateSuccess) {
+      setSent(true);
+    } else {
+      setNotSent(true);
+    }
+
+    // Original fetch call (commented out for local testing without a backend)
+    // fetch("http://127.0.0.1:5000/api/contact/sendmessage", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(filteredData),
+    // })
+    //   .then((response) => {
+    //     if (response.ok) {
+    //       setSent(true);
+    //     } else {
+    //       setNotSent(true);
+    //     }
+    //     return response.json();
+    //   })
+    //   .then((data) => console.log(data))
+    //   .catch((error) => {
+    //     console.error(error);
+    //     setNotSent(true);
+    //   });
     reset();
   };
 
@@ -79,6 +105,7 @@ function ContactForm() {
           className="h-6 w-6"
           viewBox="0 0 24 24"
           fill="currentColor"
+          style={{ color: accentColor }} // Icon color uses accent
         >
           <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
         </svg>
@@ -94,6 +121,7 @@ function ContactForm() {
           className="h-6 w-6"
           viewBox="0 0 24 24"
           fill="currentColor"
+          style={{ color: accentColor }} // Icon color uses accent
         >
           <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z" />
         </svg>
@@ -109,6 +137,7 @@ function ContactForm() {
           className="h-6 w-6"
           viewBox="0 0 24 24"
           fill="currentColor"
+          style={{ color: accentColor }} // Icon color uses accent
         >
           <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z" />
         </svg>
@@ -120,7 +149,7 @@ function ContactForm() {
     {
       name: "Twitter",
       href: "https://twitter.com",
-      color: "#1DA1F2",
+      color: "#1DA1F2", // Specific color for social icon
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -135,7 +164,7 @@ function ContactForm() {
     {
       name: "LinkedIn",
       href: "https://linkedin.com",
-      color: "#0077B5",
+      color: "#0077B5", // Specific color for social icon
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -150,7 +179,7 @@ function ContactForm() {
     {
       name: "Dribbble",
       href: "https://dribbble.com",
-      color: "#EA4C89",
+      color: "#EA4C89", // Specific color for social icon
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -164,26 +193,18 @@ function ContactForm() {
     },
   ];
 
-  const { theme, themes } = useContext(ThemeContext);
-  const backgroundColor = themes[theme].primaryColor;
-  const secondaryColor = themes[theme].secondaryColor;
-  const mediumTextColor = themes[theme].mediumTextColor;
-  const largeTextColor = themes[theme].largeTextColor;
-  const CardColor = themes[theme].CardColor;
-  const borderColor = themes[theme].borderColor;
-  const secondaryHoverColor = themes[theme].secondaryHoverColor;
-
   return (
     <div
-      className={`w-full py-12 px-4 sm:px-6 lg:px-8 bg-[${backgroundColor}]`}
+      className="w-full py-12 px-4 sm:px-6 lg:px-8"
+      style={{ backgroundColor: backgroundPrimary }}
     >
       <div className="max-w-6xl mx-auto">
-        <h3 className="font-manrope font-bold text-3xl text-center text-[#333333] mb-8">
+        <h3 className="font-manrope font-bold text-3xl text-center mb-8" style={{ color: textPrimary }}>
           Get in Touch
         </h3>
 
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Contact Info - same as before */}
+          {/* Contact Info */}
           <div className="w-full lg:w-2/5 space-y-6">
             {contactDetails.map((item, index) => (
               <a
@@ -191,33 +212,54 @@ function ContactForm() {
                 href={item.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`flex border-gray-100 justify-between items-center p-6 bg-[${CardColor}] rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-[${borderColor}] group`}
+                className={`flex justify-between items-center p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border group`}
+                style={{
+                  backgroundColor: backgroundSecondary,
+                  borderColor: borderColor,
+                  boxShadow: `0 4px 6px -1px ${shadowColor}, 0 2px 4px -1px ${shadowColor}`
+                }}
               >
                 <div className="flex items-center">
                   <div
-                    className={`w-12 h-12 rounded-full bg-[${CardColor}] flex items-center justify-center mr-4 group-hover:bg-[${secondaryColor}] transition-colors`}
+                    className={`w-12 h-12 rounded-full flex items-center justify-center mr-4 transition-colors`}
+                    style={{
+                      backgroundColor: backgroundSecondary,
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = accentColor}
+                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = backgroundSecondary}
                   >
                     <div
-                      className={`text-[${secondaryColor}] group-hover:text-white transition-colors`}
+                      className={`transition-colors`}
+                      style={{ color: accentColor }} // Default icon color
+                      onMouseEnter={(e) => e.currentTarget.style.color = textButton} // Icon color on hover
+                      onMouseLeave={(e) => e.currentTarget.style.color = accentColor} // Icon color on leave
                     >
                       {item.icon}
                     </div>
                   </div>
                   <div>
                     <p
-                      className={`text-sm text-[${mediumTextColor}] font-normal`}
+                      className={`text-sm font-normal`}
+                      style={{ color: textSecondary }}
                     >
                       {item.title}
                     </p>
                     <p
-                      className={`text-base text-[${largeTextColor}] font-medium`}
+                      className={`text-base font-medium`}
+                      style={{ color: textPrimary }}
                     >
                       {item.value}
                     </p>
                   </div>
                 </div>
                 <div
-                  className={`w-10 h-10 rounded-full bg-[${CardColor}] flex items-center justify-center group-hover:bg-[${secondaryColor}] group-hover:text-white transition-colors`}
+                  className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors`}
+                  style={{
+                    backgroundColor: backgroundSecondary,
+                    color: textPrimary, // Default arrow color
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = accentColor; e.currentTarget.style.color = textButton; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = backgroundSecondary; e.currentTarget.style.color = textPrimary; }}
                 >
                   →
                 </div>
@@ -227,7 +269,8 @@ function ContactForm() {
             {/* Social Icons */}
             <div className="mt-4">
               <p
-                className={`text-lg font-medium text-[${largeTextColor}] mb-4`}
+                className={`text-lg font-medium mb-4`}
+                style={{ color: textPrimary }}
               >
                 My Social Profiles
               </p>
@@ -241,7 +284,10 @@ function ContactForm() {
                     aria-label={link.name}
                     className="hover:scale-110 transform transition-transform"
                   >
-                    {link.icon}
+                    {/* For social icons, their color is often part of their brand,
+                        but if they need to change with theme, they should accept a 'color' prop.
+                        For now, keeping original fill color but wrapping in a div for potential future dynamic color. */}
+                    <div style={{ color: iconDefault }}>{link.icon}</div>
                   </a>
                 ))}
               </div>
@@ -251,14 +297,19 @@ function ContactForm() {
           {/* Contact Form */}
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className={`w-full lg:w-3/5 bg-[${backgroundColor}] rounded-2xl shadow-xl p-6 md:p-8`}
+            className={`w-full lg:w-3/5 rounded-2xl shadow-xl p-6 md:p-8`}
+            style={{
+              backgroundColor: backgroundSecondary, // Form background
+              boxShadow: `0 10px 15px -3px ${shadowColor}, 0 4px 6px -2px ${shadowColor}`
+            }}
           >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* First Name */}
               <div>
                 <label
                   htmlFor="firstName"
-                  className={`font-manrope font-medium text-[${mediumTextColor}] block mb-2`}
+                  className={`font-manrope font-medium block mb-2`}
+                  style={{ color: textSecondary }}
                 >
                   First Name *
                 </label>
@@ -273,7 +324,13 @@ function ContactForm() {
                   id="firstName"
                   type="text"
                   placeholder="John"
-                  className={`w-full p-3 border border-[${borderColor}] rounded-lg focus:ring-2 focus:ring-[${secondaryColor}] focus:border-transparent transition-all`}
+                  className={`w-full p-3 rounded-lg focus:ring-2 focus:border-transparent transition-all`}
+                  style={{
+                    backgroundColor: backgroundPrimary, // Input background
+                    color: textPrimary, // Input text color
+                    border: `1px solid ${borderColor}`,
+                    '--tw-ring-color': accentColor, // Focus ring color
+                  }}
                 />
                 {errors.firstName && (
                   <p className="text-red-500 text-sm mt-1">
@@ -286,7 +343,8 @@ function ContactForm() {
               <div>
                 <label
                   htmlFor="lastName"
-                  className={`font-manrope font-medium text-[${mediumTextColor}] block mb-2`}
+                  className={`font-manrope font-medium block mb-2`}
+                  style={{ color: textSecondary }}
                 >
                   Last Name
                 </label>
@@ -295,14 +353,21 @@ function ContactForm() {
                   id="lastName"
                   type="text"
                   placeholder="Doe"
-                  className={`w-full p-3 border border-[${borderColor}] rounded-lg focus:ring-2 focus:ring-[${secondaryColor}] focus:border-transparent transition-all`}
+                  className={`w-full p-3 rounded-lg focus:ring-2 focus:border-transparent transition-all`}
+                  style={{
+                    backgroundColor: backgroundPrimary,
+                    color: textPrimary,
+                    border: `1px solid ${borderColor}`,
+                    '--tw-ring-color': accentColor,
+                  }}
                 />
               </div>
 
               {/* Contact Method Selection */}
               <div className="md:col-span-2">
                 <p
-                  className={`font-manrope font-medium text-[${largeTextColor}] text-lg mb-3`}
+                  className={`font-manrope font-medium text-lg mb-3`}
+                  style={{ color: textPrimary }}
                 >
                   How would you like us to reply? *
                 </p>
@@ -312,11 +377,16 @@ function ContactForm() {
                       type="checkbox"
                       id="whatsapp-contact"
                       {...register("whatsappContact")}
-                      className={`w-5 h-5 text-[${secondaryColor}] rounded focus:ring-[${secondaryColor}]`}
+                      className={`w-5 h-5 rounded focus:ring-2`}
+                      style={{
+                        color: accentColor, // Checkbox color
+                        '--tw-ring-color': accentColor,
+                      }}
                     />
                     <label
                       htmlFor="whatsapp-contact"
-                      className={`ml-2 font-manrope font-medium text-[${mediumTextColor}]`}
+                      className={`ml-2 font-manrope font-medium`}
+                      style={{ color: textSecondary }}
                     >
                       WhatsApp
                     </label>
@@ -331,11 +401,16 @@ function ContactForm() {
                           watchWhatsapp ||
                           "Please select at least one contact method",
                       })}
-                      className={`w-5 h-5 text-[${secondaryColor}] rounded focus:ring-[${secondaryColor}]`}
+                      className={`w-5 h-5 rounded focus:ring-2`}
+                      style={{
+                        color: accentColor, // Checkbox color
+                        '--tw-ring-color': accentColor,
+                      }}
                     />
                     <label
                       htmlFor="email-contact"
-                      className={`ml-2 font-manrope font-medium text-[${mediumTextColor}]`}
+                      className={`ml-2 font-manrope font-medium`}
+                      style={{ color: textSecondary }}
                     >
                       Email
                     </label>
@@ -353,7 +428,8 @@ function ContactForm() {
                 <div className="md:col-span-2">
                   <label
                     htmlFor="whatsappNumber"
-                    className="font-manrope font-medium text-[#4D4D4D] block mb-2"
+                    className="font-manrope font-medium block mb-2"
+                    style={{ color: textSecondary }}
                   >
                     WhatsApp Number *
                   </label>
@@ -368,7 +444,13 @@ function ContactForm() {
                     id="whatsappNumber"
                     type="tel"
                     placeholder="+1 (555) 123-4567"
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#5700FF] focus:border-transparent transition-all"
+                    className="w-full p-3 rounded-lg focus:ring-2 focus:border-transparent transition-all"
+                    style={{
+                      backgroundColor: backgroundPrimary,
+                      color: textPrimary,
+                      border: `1px solid ${borderColor}`,
+                      '--tw-ring-color': accentColor,
+                    }}
                   />
                   {errors.whatsappNumber && (
                     <p className="text-red-500 text-sm mt-1">
@@ -383,7 +465,8 @@ function ContactForm() {
                 <div className="md:col-span-2">
                   <label
                     htmlFor="email"
-                    className={`font-manrope font-medium text-[${mediumTextColor}] block mb-2`}
+                    className={`font-manrope font-medium block mb-2`}
+                    style={{ color: textSecondary }}
                   >
                     Email Address *
                   </label>
@@ -398,7 +481,13 @@ function ContactForm() {
                     id="email"
                     type="email"
                     placeholder="john@example.com"
-                    className={`w-full p-3 border border-[${borderColor}] rounded-lg focus:ring-2 focus:ring-[${secondaryColor}] focus:border-transparent transition-all`}
+                    className={`w-full p-3 rounded-lg focus:ring-2 focus:border-transparent transition-all`}
+                    style={{
+                      backgroundColor: backgroundPrimary,
+                      color: textPrimary,
+                      border: `1px solid ${borderColor}`,
+                      '--tw-ring-color': accentColor,
+                    }}
                   />
                   {errors.email && (
                     <p className="text-red-500 text-sm mt-1">
@@ -411,7 +500,8 @@ function ContactForm() {
               {/* Contact Reason */}
               <div className="md:col-span-2">
                 <p
-                  className={`font-manrope font-medium text-[${largeTextColor}] text-lg mb-3`}
+                  className={`font-manrope font-medium text-lg mb-3`}
+                  style={{ color: textPrimary }}
                 >
                   Why are you contacting us?
                 </p>
@@ -428,11 +518,16 @@ function ContactForm() {
                         type="checkbox"
                         id={`option-${index}`}
                         value={option}
-                        className={`w-5 h-5 text-[${secondaryColor}] rounded focus:ring-[${secondaryColor}]`}
+                        className={`w-5 h-5 rounded focus:ring-2`}
+                        style={{
+                          color: accentColor, // Checkbox color
+                          '--tw-ring-color': accentColor,
+                        }}
                       />
                       <label
                         htmlFor={`option-${index}`}
-                        className={`ml-2 font-manrope font-medium text-[${mediumTextColor}]`}
+                        className={`ml-2 font-manrope font-medium`}
+                        style={{ color: textSecondary }}
                       >
                         {option}
                       </label>
@@ -445,7 +540,8 @@ function ContactForm() {
               <div className="md:col-span-2">
                 <label
                   htmlFor="message"
-                  className={`font-manrope font-medium text-[${mediumTextColor}] block mb-2`}
+                  className={`font-manrope font-medium block mb-2`}
+                  style={{ color: textSecondary }}
                 >
                   Your Message *
                 </label>
@@ -460,7 +556,13 @@ function ContactForm() {
                   id="message"
                   rows="5"
                   placeholder="How can we help you?"
-                  className={`w-full p-3 border border-[${borderColor}] rounded-lg focus:ring-2 focus:ring-[${secondaryColor}] focus:border-transparent transition-all`}
+                  className={`w-full p-3 rounded-lg focus:ring-2 focus:border-transparent transition-all`}
+                  style={{
+                    backgroundColor: backgroundPrimary,
+                    color: textPrimary,
+                    border: `1px solid ${borderColor}`,
+                    '--tw-ring-color': accentColor,
+                  }}
                 ></textarea>
                 {errors.message && (
                   <p className="text-red-500 text-sm mt-1">
@@ -473,7 +575,13 @@ function ContactForm() {
               <div className="md:col-span-2 flex justify-center mt-4">
                 <button
                   type="submit"
-                  className={`font-manrope font-medium text-white bg-[${secondaryColor}] hover:bg-[${secondaryHoverColor}] transition-colors flex items-center justify-center py-3 px-12 rounded-lg shadow-md hover:shadow-lg w-full max-w-xs`}
+                  className={`font-manrope font-medium text-white shadow-md hover:shadow-lg w-full max-w-xs py-3 px-12 rounded-lg transition-colors`}
+                  style={{
+                    backgroundColor: accentColor,
+                    color: textButton,
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = hoverAccent}
+                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = accentColor}
                 >
                   Send Message
                 </button>

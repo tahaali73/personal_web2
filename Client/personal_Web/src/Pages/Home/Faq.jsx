@@ -1,17 +1,18 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
 import BookaCall_btn from "../../Components/BookaCall-btn";
-import FAQSection from "../../Components/FaqComp";
+import FAQSection from "../../Components/FaqComp"; // Renamed from FaqComp to FAQSection as per your file structure
 import { ThemeContext } from "../../Contexts/ThemeContext";
 
 function Faq({ faqs }) {
   const faqContainerRef = useRef(null);
   const [showScrollArrow, setShowScrollArrow] = useState(false);
   const { theme, themes } = useContext(ThemeContext);
-  const backgroundColor = themes[theme].primaryColor;
-  const secondaryColor = themes[theme].secondaryColor;
-  const mediumTextColor = themes[theme].mediumTextColor;
-  const largeTextcolor = themes[theme].largeTextColor;
-  const CardColor = themes[theme].CardColor;
+  const backgroundPrimary = themes[theme].backgroundPrimary;
+  const accentColor = themes[theme].accent;
+  const textSecondary = themes[theme].textSecondary;
+  const textPrimary = themes[theme].textPrimary;
+  const backgroundSecondary = themes[theme].backgroundSecondary; // Card background
+  const shadowColor = themes[theme].shadow;
 
   // Check if FAQ content overflows its container
   useEffect(() => {
@@ -42,17 +43,19 @@ function Faq({ faqs }) {
   };
 
   return (
-    <div className={`w-full py-12 px-4 sm:px-6 lg:px-8 bg-[${backgroundColor}]`}>
+    <div className="w-full py-12 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: backgroundPrimary }}>
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
         <div className="text-center mb-12">
           <h2
-            className={`font-semibold font-manrope text-2xl sm:text-3xl md:text-4xl lg:text-[38px] text-[${largeTextcolor}] mb-3`}
+            className={`font-semibold font-manrope text-2xl sm:text-3xl md:text-4xl lg:text-[38px] mb-3`}
+            style={{ color: textPrimary }}
           >
             Frequently Asked Questions
           </h2>
           <p
-            className={`font-normal font-manrope text-base md:text-lg text-[${mediumTextColor}] max-w-3xl mx-auto`}
+            className={`font-normal font-manrope text-base md:text-lg max-w-3xl mx-auto`}
+            style={{ color: textSecondary }}
           >
             Here are answers to some common questions
           </p>
@@ -71,19 +74,24 @@ function Faq({ faqs }) {
             {/* Scroll Down Arrow */}
             {showScrollArrow && (
               <div
-                className={`absolute bottom-0 left-0 right-0 flex justify-center pt-4 bg-gradient-to-t from-[${backgroundColor}] to-transparent`}
+                className={`absolute bottom-0 left-0 right-0 flex justify-center pt-4`}
+                style={{
+                  background: `linear-gradient(to top, ${backgroundPrimary} 50%, transparent)`,
+                }}
               >
                 <button
                   onClick={scrollDown}
-                  className={`animate-bounce bg-[${secondaryColor}] rounded-full p-2 shadow-lg`}
+                  className={`animate-bounce rounded-full p-2 shadow-lg`}
+                  style={{ backgroundColor: accentColor }}
                   aria-label="Scroll down"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6 text-white"
+                    className="h-6 w-6"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
+                    style={{ color: themes[theme].textButton }} // Icon color
                   >
                     <path
                       strokeLinecap="round"
@@ -100,17 +108,19 @@ function Faq({ faqs }) {
           {/* "Still have questions" Panel - Fixed */}
           <div className="w-full lg:w-1/3">
             <div
-              className={`bg-[${CardColor}] rounded-xl p-6 md:p-8 shadow-lg h-full`}
+              className={`rounded-xl p-6 md:p-8 shadow-lg h-full`}
+              style={{ backgroundColor: backgroundSecondary }}
             >
               <div className="flex flex-col justify-between h-full">
                 <div className="mb-6 flex justify-center">
-                  <div className={`bg-[${secondaryColor}] rounded-full p-3`}>
+                  <div className={`rounded-full p-3`} style={{ backgroundColor: accentColor }}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-8 w-8 text-white"
+                      className="h-8 w-8"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
+                      style={{ color: themes[theme].textButton }} // Icon color
                     >
                       <path
                         strokeLinecap="round"
@@ -123,12 +133,14 @@ function Faq({ faqs }) {
                 </div>
                 <div className="mb-8">
                   <h3
-                    className={`font-manrope font-semibold text-xl md:text-2xl text-[${largeTextcolor}] mb-4`}
+                    className={`font-manrope font-semibold text-xl md:text-2xl mb-4`}
+                    style={{ color: textPrimary }}
                   >
                     Still have any Questions?
                   </h3>
                   <p
-                    className={`font-manrope font-normal text-base text-[${mediumTextColor}]`}
+                    className={`font-manrope font-normal text-base`}
+                    style={{ color: textSecondary }}
                   >
                     Let's collaborate to create an exceptional website that sets
                     you apart from the competition. Contact me today to discuss
@@ -139,7 +151,8 @@ function Faq({ faqs }) {
                 <div className="flex justify-center">
                   <BookaCall_btn
                     btn_name="Contact Me"
-                    className="w-full max-w-[200px] h-[49px]"
+                    width="100%" // Make button full width of its container
+                    height="49px"
                   />
                 </div>
               </div>
