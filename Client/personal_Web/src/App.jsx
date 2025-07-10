@@ -9,15 +9,19 @@ import Portfolio from "./Pages/Portfolio/Portfolio";
 import NotFoundPage from "./Pages/NotFoundPage";
 import CvModal from "./Pages/Home/Cv";
 import { ThemeProvider } from "./Contexts/ThemeContext";
-import Chatbot from "./Chatbot/chatbot";
+import ChatbotUI from "./Components/Chatbot";
 
 const name = "Taha Ali";
 
+// Layout component to wrap common elements like Navbar and Footer
 function Layout({ children }) {
   return (
     <>
+      {/* Navbar is rendered here for all routes using this Layout */}
       <Navbar name="Taha" />
+      {/* Children prop will render the specific page component (Home, About, etc.) */}
       {children}
+      {/* Footer is rendered here for all routes using this Layout */}
       <Footer
         name={name}
         email="diytech960@gmail.com"
@@ -30,15 +34,19 @@ function Layout({ children }) {
 
 function App() {
   return (
-    //<Chatbot/>
     <ThemeProvider>
+      {/* The main container for the application, handling scroll behavior */}
       <div className="h-screen overflow-y-auto scrollbar-hide">
         <BrowserRouter>
+          {/* Routes define which component to render based on the URL */}
           <Routes>
+            {/* Route for 404 Not Found page */}
             <Route path="*" element={<NotFoundPage />} />
 
+            {/* Route for CV Modal (assuming it's a standalone page/modal) */}
             <Route path="/cv" element={<CvModal />} />
 
+            {/* Routes wrapped by the Layout component */}
             <Route
               path="/"
               element={
@@ -75,10 +83,13 @@ function App() {
               }
             />
           </Routes>
+          {/* ChatbotUI is placed here, outside of the <Routes> and <Layout>
+              to ensure it's rendered globally and persists across page changes. */}
+          <ChatbotUI />
         </BrowserRouter>
       </div>
     </ThemeProvider>
-  ); 
-} 
+  );
+}
 
 export default App;
